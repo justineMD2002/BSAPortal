@@ -63,7 +63,7 @@ class Login(View):
                 user = Resident.objects.get(username=username, password=password, user_type="R")
                 request.session['type'] = "R"
                 request.session['user_id'] = user.user_id
-                return redirect(reverse('bookappointment:book'))
+                return redirect(reverse('bookappointment:appointment_list'))
             except Resident.DoesNotExist:
                 messages.error(request, 'Invalid login credentials. Please try again.')
         else:
@@ -85,3 +85,14 @@ class BookAppointmentView(View):
         form = AppointmentForm(initial={'resident': request.session['user_id'], 'healthCenter': health_center.pk})
         return render(request, 'bookappointment.html', {'form': form})
 
+
+def appointment_list(request):
+    appointments = Appointment.objects.all()
+    return render(request, 'appointment_list.html', {'appointments': appointments})
+
+
+def myappointment_list(request):
+    user_id = request.session['user_id']
+    resident = Resident.objects.get(user_id=user_id)
+    appointments = Appointment.objects.filter(resident=resident)
+    return render(request, 'myappointment_list.html', {'appointments': appointments})

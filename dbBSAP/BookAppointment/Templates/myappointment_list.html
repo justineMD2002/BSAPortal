@@ -1,0 +1,109 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointments List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background-color: #00529B;
+            color: white;
+            display: flex;
+            justify-content: space-between; /* To create space between logo and "Back" button */
+            align-items: center;
+            padding: 10px;
+        }
+
+        .logo {
+            width: 50px; /* Adjust the size as needed */
+            margin-right: 20px;
+        }
+
+        .title {
+            font-size: 24px;
+        }
+
+        .back-button {
+            background-color: #00529B;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .back-button:hover {
+            background-color: #003f73; /* Slightly darker on hover */
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        .appointment-table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #00529B;
+        }
+
+        .appointment-table th,
+        .appointment-table td {
+            border: 1px solid #00529B;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .appointment-table th {
+            background-color: #00529B;
+            color: white;
+        }
+
+        .appointment-table tbody tr:nth-child(even) {
+            background-color: #f2f2f2; /* Alternate row background color */
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <img src="{% static 'assets/Logo.png' %}" alt="Your Logo" class="logo">
+        <h1 class="title">My Appointments</h1>
+        <button class="back-button" onclick="window.history.back()">Back</button>
+    </header>
+    <main class="content">
+        <table class="appointment-table">
+            <thead>
+                <tr>
+                    <th>Appointment ID</th>
+                    <th>Type of Appointment</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Date Approved</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for appointment in appointments %}
+                <tr>
+                    <td>{{ appointment.appointment_id }}</td>
+                    <td>{{ appointment.get_typeOfAppointment_display }}</td>
+                    <td>{{ appointment.dateOfAppointment }}</td>
+                    <td>{{ appointment.timeOfAppointment }}</td>
+                    <td>{{ appointment.dateOfApproval }}</td>
+                    <td>{{ appointment.get_appointmentStatus_display }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </main>
+</body>
+</html>

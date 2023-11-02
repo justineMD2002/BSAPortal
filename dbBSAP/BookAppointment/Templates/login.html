@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,8 +10,8 @@
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            display: flex;
+            background-size: cover;
+            background: url("{% static 'assets/background.png' %}") no-repeat center center fixed;            display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
@@ -67,7 +69,7 @@
         h4 {
             margin-top: 20px;
             margin-bottom: 5px;
-            color: #555;
+            color: #2C2C2C;
         }
     </style>
 </head>

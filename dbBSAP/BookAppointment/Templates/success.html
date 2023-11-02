@@ -46,8 +46,9 @@
 </head>
 <body>
     <h1>Success</h1>
-    <p>Your login was successful. Welcome to the Barangay Portal!</p>
+    <p>Your health center appointment booking was successful.
+        Kindly allow a few days for the approval of your appointment.</p>
     <p>Explore the portal and access the features you need.</p>
-    <a href="#">Dashboard</a>
+    <a href="{% url 'bookappointment:appointment_list' %}" style="color: inherit; text-decoration: none;">Dashboard</a>
 </body>
 </html>

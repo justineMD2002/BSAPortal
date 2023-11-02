@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +10,8 @@
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0; /* Light gray background */
+            background-size: cover;
+            background: url("{% static 'assets/background.png' %}") no-repeat center center fixed;
             display: flex;
             flex-direction: column;
             justify-content: center; /* Center content vertically */
@@ -25,8 +28,13 @@
             text-transform: uppercase;
         }
 
+        .logo {
+            width: 50px; /* Adjust the size as needed */
+            margin-right: 20px;
+        }
+
         form {
-            background-color: #fff; /* White background */
+            background-color: rgba(255, 255, 255, 0.7); /* 70% opacity white background */
             border: 1px solid #ccc;
             padding: 20px;
             border-radius: 10px; /* Rounded corners */
@@ -74,14 +82,14 @@
 <body>
     <h2>Book Appointment</h2>
     {% if messages %}
-            <div class="alert-{{ messages.tags }}">
-                <ul class="messages">
-                    {% for message in messages %}
-                        <li>{{ message }}</li>
-                    {% endfor %}
-                </ul>
-            </div>
-        {% endif %}
+        <div class="alert-{{ messages.tags }}">
+            <ul class="messages">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
