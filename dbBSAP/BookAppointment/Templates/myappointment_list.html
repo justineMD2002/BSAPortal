@@ -94,14 +94,54 @@
             <tbody>
                 {% for appointment in appointments %}
                 <tr>
-                    <td>{{ appointment.appointment_id }}</td>
-                    <td>{{ appointment.get_typeOfAppointment_display }}</td>
-                    <td>{{ appointment.dateOfAppointment }}</td>
-                    <td>{{ appointment.timeOfAppointment }}</td>
-                    <td>{{ appointment.dateOfApproval }}</td>
-                    <td>{{ appointment.get_appointmentStatus_display }}</td>
+                    <td>{{ appointment.0 }}</td>
+                    <td>
+                        {% if appointment.7 == "G" %}
+                            <span data-appointment-date="{{ appointment.7 }}"></span>General Healthcare
+                        {% elif appointment.7 == "V" %}
+                            <span data-appointment-date="{{ appointment.7 }}"></span>Vaccination
+                        {% elif appointment.7 == "C" %}
+                            <span data-appointment-date="{{ appointment.7 }}"></span>Consultation
+                        {% elif appointment.7 == "P" %}
+                            <span data-appointment-date="{{ appointment.7 }}"></span>Prenatal
+                        {% elif appointment.7 == "F" %}
+                            <span data-appointment-date="{{ appointment.7 }}"></span>Family Planning
+                        {% elif appointment.7 == "B" %}
+                            <span data-appointment-date="{{ appointment.7 }}"></span>Behavioral Healthcare
+                        {% elif appointment.7 == "L" %}
+                            <span data-appointment-date="{{ appointment.7 }}"></span>Laboratory
+                        {% elif appointment.7 == "D" %}
+                            <span data-appointment-date="{{ appointment.7 }}"></span>Dental Care
+                        {% elif appointment.7 == "T" %}
+                            <span data-appointment-date="{{ appointment.7 }}"></span>Physical/Occupational Therapy
+                        {% elif appointment.7 == "M" %}
+                            <span data-appointment-date="{{ appointment.7 }}"></span>Pharmaceutical Care
+                        {% elif appointment.7 == "N" %}
+                            <span data-appointment-date="{{ appointment.7 }}"></span>Nutritional Support
+                        {% endif %}
+                    </td>
+                    <td>{{ appointment.1 }}</td>
+                    <td>{{ appointment.2 }}</td>
+                    <td>{{ appointment.3 }}</td>
+                    <td>
+                        {% if appointment.4 == "P" %}
+                            <span data-appointment-date="{{ appointment.4 }}"></span>Pending
+                        {% elif appointment.4 == "R" %}
+                            <span data-appointment-date="{{ appointment.4 }}"></span>Rejected
+                        {% elif appointment.7 == "A" %}
+                            <span data-appointment-date="{{ appointment.7 }}"></span>Approved
+                        {% endif %}
+                    </td>
+
+<!--                    previous implementation-->
+<!--                    <td>{{ appointment.appointment_id }}</td>-->
+<!--                    <td>{{ appointment.get_typeOfAppointment_display }}</td>-->
+<!--                    <td>{{ appointment.dateOfAppointment }}</td>-->
+<!--                    <td>{{ appointment.timeOfAppointment }}</td>-->
+<!--                    <td>{{ appointment.dateOfApproval }}</td>-->
+<!--                    <td>{{ appointment.get_appointmentStatus_display }}</td>-->
                 </tr>
-            {% endfor %}
+                {% endfor %}
             </tbody>
         </table>
     </main>
