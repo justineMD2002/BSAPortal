@@ -49,8 +49,8 @@ class RegistrationView(View):
             result1 = cursor.fetchall()
             msg = result1[0][0]
             cursor.close()
-
-            if username + "Username exists" == msg:
+            print(msg)
+            if username + "Username exist" == msg or username + "Username exists" == msg:
                 messages.error(request, 'User exists.')
                 return render(request, 'registration.html', {'form': resident_form})
             else:
