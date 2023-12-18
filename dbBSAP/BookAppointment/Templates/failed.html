@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Barangay Portal - Login Required</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        h1 {
+            text-align: center;
+            color: #ff3333; /* Red title color */
+            font-size: 36px;
+            margin: 20px 0;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        p {
+            text-align: center;
+            color: #333; /* Dark gray text color */
+            font-size: 18px; /* Adjust font size */
+            margin: 20px 0;
+        }
+
+        a {
+            color: #0073e6;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Login Required</h1>
+    <p>You need to log in before accessing this feature.</p>
+    <p>Please <a href="{% url 'bookappointment:login' %}" style="color: inherit; text-decoration: none;">log in</a> to continue.</p>
+</body>
+</html>

@@ -10,4 +10,5 @@ urlpatterns = [
     path('bookappointment/book/', views.BookAppointmentView.as_view(), name="book"),
     path('bookappointment/appointments/', views.appointment_list, name='appointment_list'),
     path('bookappointment/myappointments/', views.myappointment_list, name='myappointment_list'),
+    path('bookappointment/logout/', views.logout_view, name='logout'),
 ]

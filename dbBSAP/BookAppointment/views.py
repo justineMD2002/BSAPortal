@@ -11,7 +11,7 @@ from .models import Appointment, HealthCenter
 from django.shortcuts import render
 from .models import HealthCenter
 from django.db import connection
-
+from django.contrib.auth import logout
 
 Resident = apps.get_model('CreateAccount','Resident')
 HealthCenter = apps.get_model('BookAppointment','HealthCenter')
@@ -127,7 +127,10 @@ class BookAppointmentView(View):
     def post(self,request):
         form = AppointmentForm(request.POST)
         if form.is_valid():
-            user_id = request.session['user_id']
+            try:
+                user_id = request.session['user_id']
+            except KeyError:
+                return render(request, 'failed.html')
             type = request.POST['typeOfAppointment']
             date = request.POST['dateOfAppointment']
             time = request.POST['timeOfAppointment']
@@ -154,14 +157,19 @@ class BookAppointmentView(View):
         #   return render(request, 'success.html')
         # return render(request, 'bookappointment.html', {'form': form})
     def get(self,request):
+        try:
+            user_id = request.session['user_id']
+        except KeyError:
+            return render(request, 'failed.html')
+
         health_center = HealthCenter.objects.first()
-        form = AppointmentForm(initial={'resident': request.session['user_id'], 'healthCenter': health_center.pk})
+        form = AppointmentForm(initial={'resident': user_id, 'healthCenter': health_center.pk})
         return render(request, 'bookappointment.html', {'form': form})
 
 
 def appointment_list(request):
     cursor = connection.cursor()
-    query = "SELECT * FROM appointment"
+    query = "SELECT * FROM appointmentlist_view"
     cursor.execute(query)
     appointments = cursor.fetchall()
     cursor.close()
@@ -174,9 +182,12 @@ def appointment_list(request):
 
 def myappointment_list(request):
     cursor = connection.cursor()
-    user_id = request.session['user_id']
-    query = "SELECT * FROM appointment WHERE resident_id = %s"
-    cursor.execute(query, (user_id,))
+    try:
+        user_id = request.session['user_id']
+    except KeyError:
+        return render(request, 'failed.html')
+
+    cursor.callproc('display_myappointmentlist', [user_id])
     appointments = cursor.fetchall()
     cursor.close()
     return render(request, 'myappointment_list.html', {'appointments': appointments})
@@ -186,3 +197,8 @@ def myappointment_list(request):
     # resident = Resident.objects.get(user_id=user_id)
     # appointments = Appointment.objects.filter(resident=resident)
     # return render(request, 'myappointment_list.html', {'appointments': appointments})
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('bookappointment:login')
