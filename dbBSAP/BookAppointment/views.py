@@ -145,6 +145,9 @@ class BookAppointmentView(View):
             if msg == 0:
                 messages.error(request, 'This schedule is already booked. Please select an alternative time slot.')
                 return render(request, 'bookappointment.html', {'form': form})
+            elif msg == -1:
+                messages.error(request, 'Cannot book schedule. Past is past.')
+                return render(request, 'bookappointment.html', {'form': form})
             else:
                 return render(request, 'success.html')
         else:
